@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SR POS System</title>
+<link rel="stylesheet" href="Css/style.css">
+<link rel="icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!--  LOGIN SECTION  -->
+    <div id="loginSection" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-store"></i>
+                <h1>SR POS System</h1>
+            </div>
+            <div class="login-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Username">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <button id="loginBtn" class="login-btn">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!--  MAIN APPLICATION SECTION  -->
+    <div id="appSection" style="display: none;">
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-store"></i>
+                <h2>SR POS</h2>
+            </div>
+            <nav>
+                <button class="nav-btn active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-btn" data-page="customers">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </button>
+                <button class="nav-btn" data-page="items">
+                    <i class="fas fa-boxes"></i>
+                    <span>Store</span>
+                </button>
+                <button class="nav-btn" data-page="orders">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Order</span>
+                </button>
+                <button id="logoutBtn" class="nav-btn logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            
+            <!-- Dashboard Page -->
+            <div id="dashboardPage" class="page active">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back, <span id="userName">Admin</span>!</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Sales</h3>
+                            <div class="stat-value" id="totalSales">RS 0.00</div>
+                            <span class="stat-change positive" id="salesChange">0% from yesterday</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+                        <div class="stat-info">
+                            <h3>Orders Today</h3>
+                            <div class="stat-value" id="ordersToday">0</div>
+                            <span class="stat-change positive" id="ordersChange">0% from yesterday</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Customer</h3>
+                            <div class="stat-value" id="totalCustomers">0</div>
+                            <span class="stat-change positive" id="customersChange">0% from last month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-box"></i></div>
+                        <div class="stat-info">
+                            <h3>Stock Items</h3>
+                            <div class="stat-value" id="stockItems">0</div>
+                            <span class="stat-change" id="newItems">0 new items</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-orders-section" style="margin-top: 30px;">
+                    <div class="page-header" style="margin-bottom: 15px;">
+                        <h2>Recent Orders</h2>
+                    </div>
+                    <div class="table-container">
+                        <table id="recentOrdersTable">
+                            <thead>
+                                <tr><th>Order ID</th><th>Date</th><th>Customer ID</th><th>Total Amount</th></tr>
+                            </thead>
+                            <tbody id="recentOrdersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers Page -->
+            <div id="customersPage" class="page">
+                <div class="page-header">
+                    <h1>Customer Management</h1>
+                </div>
+                
+                <div class="form-card">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" id="customerId" placeholder="Customer ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" id="customerName" placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="customerEmail" placeholder="Email Address">
+                        </div>
+                        <div class="form-group">
+                            <label>NIC</label>
+                            <input type="text" id="customerNic" placeholder="NIC Number">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" id="customerAddress" placeholder="Address">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact</label>
+                            <input type="text" id="customerContact" placeholder="Contact Number">
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button id="saveCustomerBtn" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                        <button id="updateCustomerBtn" class="btn btn-warning"><i class="fas fa-edit"></i> Update</button>
+                        <button id="deleteCustomerBtn" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                        <button id="resetCustomerBtn" class="btn btn-secondary"><i class="fas fa-undo"></i> Reset</button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="customerTable">
+                        <thead>
+                            <tr><th>ID</th><th>Name</th><th>Email</th><th>NIC</th><th>Address</th><th>Contact</th></tr>
+                        </thead>
+                        <tbody id="customerTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Items Page -->
+            <div id="itemsPage" class="page">
+                <div class="page-header">
+                    <h1>Store Management</h1>
+                </div>
+                
+                <div class="form-card">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Item Code</label>
+                            <input type="text" id="itemCode" placeholder="Item Code">
+                        </div>
+                        <div class="form-group">
+                            <label>Item Name</label>
+                            <input type="text" id="itemName" placeholder="Item Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="number" id="itemPrice" placeholder="Price">
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" id="itemQty" placeholder="Quantity">
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button id="saveItemBtn" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                        <button id="updateItemBtn" class="btn btn-warning"><i class="fas fa-edit"></i> Update</button>
+                        <button id="deleteItemBtn" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                        <button id="resetItemBtn" class="btn btn-secondary"><i class="fas fa-undo"></i> Reset</button>
+                    </div>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="itemSearch" placeholder="Search here...">
+                </div>
+                
+                <div class="table-container">
+                    <table id="itemTable">
+                        <thead>
+                            <tr><th>Item Code</th><th>Item Name</th><th>Price</th><th>Quantity</th></tr>
+                        </thead>
+                        <tbody id="itemTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Orders Page -->
+            <div id="ordersPage" class="page">
+                <div class="page-header">
+                    <h1>Order Management</h1>
+                </div>
+                
+                <div class="order-layout">
+                    <div class="order-form">
+                        <div class="form-card">
+                            <h3>Customer Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Customer ID</label>
+                                    <input type="text" id="orderCustomerId" placeholder="Customer ID">
+                                </div>
+                                <div class="form-group">
+                                    <label>Customer Name</label>
+                                    <input type="text" id="orderCustomerName" readonly placeholder="Customer Name">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-card">
+                            <h3>Add Item to Cart</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Item Code</label>
+                                    <input type="text" id="orderItemCode" placeholder="Item Code">
+                                </div>
+                                <div class="form-group">
+                                    <label>Item Name</label>
+                                    <input type="text" id="orderItemName" readonly placeholder="Item Name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input type="text" id="orderItemPrice" readonly placeholder="Price">
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input type="number" id="orderItemQty" placeholder="Quantity">
+                                </div>
+                            </div>
+                            <button id="addToCartBtn" class="btn btn-primary"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="order-cart">
+                        <div class="table-container">
+                            <table id="cartTable">
+                                <thead>
+                                    <tr><th>Item Code</th><th>Quantity</th><th>Unit Price</th><th>Total</th><th>Action</th></tr>
+                                </thead>
+                                <tbody id="cartTableBody"></tbody>
+                            </table>
+                        </div>
+                        <div class="total-section">
+                            <span>Net Total Amount</span>
+                            <h2 id="netTotal">LKR 0.00</h2>
+                            <button id="placeOrderBtn" class="btn btn-success"><i class="fas fa-check-circle"></i> Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!--  (MVC ORDER)  -->
+
+    <!-- Database Layer -->
+      <script src="db/db.js"></script>    
+    <!-- Model Layer -->
+    <script src="model/CustomerModel.js"></script>
+    <script src="model/ItemModel.js"></script>
+    <script src="model/OrderModel.js"></script>
+    <script src="model/DashboardModel.js"></script>
+    <script src="model/LoginModel.js"></script>
+    
+    <!-- Controller Layer -->
+    <script src="controller/AppController.js"></script>
+    <script src="controller/LoginController.js"></script>
+    <script src="controller/DashboardController.js"></script>
+    <script src="controller/CustomerController.js"></script>
+    <script src="controller/ItemController.js"></script>
+    <script src="controller/OrderController.js"></script>
+
+</body>
+</html>
